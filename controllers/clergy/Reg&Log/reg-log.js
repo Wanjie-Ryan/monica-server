@@ -50,12 +50,38 @@ const Login = async(req, res)=>{
     try{
 
         const {email, password} = req.body
+
+        if(!email || !password){
+
+            return res.status(StatusCodes.BAD_REQUEST).json({msg:'Provide all the Details required'})
+
+        }
+
+        const clergyEmail = await AuthModel.findOne({email})
+
+        if(!clergyEmail){
+
+            return res.status(StatusCodes.NOT_FOUND).json({msg:'The Email you provided cannot be found'})
+        }
+
+
+        const correctPassword = await AuthModel.checkpwd(password);
+
+        if (!correctPassword) {
+          return res
+            .status(StatusCodes.UNAUTHORIZED)
+            .json({ msg: "Incorrect password" });
+        }
         
+        const token = jwt.sign({clergyId:clergyEmail._id}, process.env.clergy_key, {expiresIn:'1d'})
+
 
 
     }
 
     catch(err){
+
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({msg:'Something went wrong, please try again later'})
 
 
     }

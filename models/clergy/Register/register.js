@@ -54,31 +54,31 @@ const clergySchema = new mongoose.Schema({
 
 
 
-// clergySchema.pre("save", async function (next) {
+clergySchema.pre("save", async function (next) {
 
-//     try {
+    try {
 
-//       const salt = await bcrypt.genSalt(10);
-//       this.password = await bcrypt.hash(this.password, salt);
-//       next();
+      const salt = await bcrypt.genSalt(10);
+      this.password = await bcrypt.hash(this.password, salt);
+      next();
 
-//     } catch (err) {
-//       next(err);
-//     }
+    } catch (err) {
+      next(err);
+    }
 
-//   });
+  });
   
-//   clergySchema.methods.checkpwd = async function (candidatePassword) {
+  clergySchema.methods.checkpwd = async function (candidatePassword) {
 
-//     try {
+    try {
 
-//       const isMatch = await bcrypt.compare(candidatePassword, this.password);
-//       return isMatch;
+      const isMatch = await bcrypt.compare(candidatePassword, this.password);
+      return isMatch;
 
-//     } catch (err) {
-//       throw err;
-//     }
-//   };
+    } catch (err) {
+      throw err;
+    }
+  };
 
 
 
