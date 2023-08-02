@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const {Register, Login} = require('../../../controllers/Reg&Log/reg-log')
+const {Register, Login} = require('../../../controllers/clergy/Reg&Log/reg-log')
 
 
 

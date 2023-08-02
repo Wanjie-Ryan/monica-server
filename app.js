@@ -11,6 +11,23 @@ const {StatusCodes} = require('http-status-codes')
 const connectionDB = require('./connection/connection.js')
 
 
+// ROUTES FOR THE CLERGY
+const AuthRoute = require('./routes/clergy/Reg&Log/reg-log')
+
+
+
+
+
+// ROUTES FOR THE USER
+
+
+
+
+// ROUTES FOR THE ADMIN
+
+
+
+
 
 app.use(helmet())
 app.use(xss())
@@ -22,6 +39,38 @@ app.use(rateLimit({
     max:100
 }))
 app.use(cors())
+
+
+
+
+// ROUTES FOR THE CLERGY
+
+app.use('/api/clergy/auth', AuthRoute)
+
+
+
+
+// ROUTES FOR THE USER
+
+
+
+
+// ROUTES FOR THE ADMIN
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
