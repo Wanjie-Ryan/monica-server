@@ -16,6 +16,8 @@ const eventSchema = new mongoose.Schema({
     },
 
     ActualDate:{
+        
+        //YYYY-MM-DD
         type:Date,
         required:[true, 'Provide the Actual Date for the Event']
     },

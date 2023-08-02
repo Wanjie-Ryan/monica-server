@@ -2,9 +2,26 @@ const Events = require('../../../../models/clergy/Events/events')
 const {StatusCodes} = require('http-status-codes')
 
 
-const CreateEvents = (req,res)=>{
+const CreateEvents = async(req,res)=>{
 
-    res.send('hey')
+    try{
+
+        const {title, image, ActualDate, DeadlineDate, description} = req.body
+
+        if(!title || !image || !ActualDate || !DeadlineDate || !description){
+
+            return res.status(StatusCodes.BAD_REQUEST).json({msg:'Fill all the fields'})
+        }
+
+        const genEvents = await Events.create(req.body)
+        return res.status(StatusCodes.OK).json({msg:'General Events was created', genEvents})
+
+    }
+
+    catch(err){
+
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR),json({msg:'There seems to be an error, please try again!'})
+    }
 }
 
 const GetAllEvents = (req,res)=>{
