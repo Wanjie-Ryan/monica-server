@@ -18,7 +18,8 @@ const projectSchema = new mongoose.Schema({
     description:{
 
         type:String,
-        required:[true, 'Provide a brief description of the Project']
+        required:[true, 'Provide a brief description of the Project'],
+        maxlength:50
 
     }
 
