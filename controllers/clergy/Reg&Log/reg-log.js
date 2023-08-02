@@ -65,21 +65,28 @@ const Login = async(req, res)=>{
         }
 
 
-        const correctPassword = await AuthModel.checkpwd(password);
+        const correctPassword = await clergyEmail.checkpwd(password);
 
         if (!correctPassword) {
           return res
             .status(StatusCodes.UNAUTHORIZED)
             .json({ msg: "Incorrect password" });
         }
+
+        const clergyLogin = clergyEmail.toObject()
+        delete clergyLogin.password
         
         const token = jwt.sign({clergyId:clergyEmail._id}, process.env.clergy_key, {expiresIn:'1d'})
+
+        return res.status(StatusCodes.OK).json({msg:`Login Successful`, clergyLogin, token})
 
 
 
     }
 
     catch(err){
+
+        console.log(err)
 
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({msg:'Something went wrong, please try again later'})
 
