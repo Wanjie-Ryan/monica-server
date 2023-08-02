@@ -2,6 +2,7 @@
 const AuthModel = require('../../../models/clergy/Register/register')
 const {StatusCodes} = require('http-status-codes')
 const jwt = require('jsonwebtoken')
+const bcrypt = require("bcryptjs");
 
 
 const Register = async(req, res)=>{
@@ -108,6 +109,8 @@ const UpdateProfile = async(req,res)=>{
         }
 
         const {id:clergyId} = req.params
+        // const clergyId = req.params.id;
+
 
         const updateClergy = await AuthModel.findOneAndUpdate({_id:clergyId}, req.body, {
 
@@ -115,18 +118,20 @@ const UpdateProfile = async(req,res)=>{
             runValidators:true
         })
 
+
         if(!updateClergy){
 
-            return res.status(StatusCodes.NOT_FOUND).json({msg:`Staff with id:${updateClergy} has not been found`})
+            return res.status(StatusCodes.NOT_FOUND).json({msg:`Staff with id:${clergyId} has not been found`})
         }
 
-        return res.status(StatusCodes.OK).json({msg:`Your Details have been updated succesfully`, updateClergy})
+         res.status(StatusCodes.OK).json({msg:`Your Details have been updated succesfully`, updateClergy})
 
 
     }
 
     catch(err){
 
+        console.log(err)
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({msg:'Something went wrong'})
 
 
