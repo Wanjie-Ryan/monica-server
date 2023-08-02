@@ -32,7 +32,7 @@ const DBConnection = async() =>{
 
     try{
 
-        await conectionDB(process.env.mongo_url)
+        await connectionDB(process.env.mongo_url)
 
         app.listen(port, ()=>{
 
