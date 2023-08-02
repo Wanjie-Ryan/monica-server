@@ -17,29 +17,78 @@ const CreateProject = async(req,res)=>{
 
         const ProjectCreated = await projectsModel.create(req.body)
 
-        return res.status(StatusCodees.OK).json({msg:'Project Successfully created', ProjectCreated})
-
-
-
+        return res.status(StatusCodes.OK).json({msg:'Project Successfully created', ProjectCreated})
 
 
     }
 
     catch(err){
 
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({msg:'Something unexpected happened, try again!'})
 
     }
 }
 
 
-const UpdateProject = (req,res)=>{
+const UpdateProject = async(req,res)=>{
 
-    res.send('hfk')
+    try{
+
+        const{title, image, description} = req.body
+
+
+        const {id:projectId} = req.params
+
+        const projectUpdated = await projectsModel.findOneAndUpdate({_id:projectId}, req.body, {
+
+            new:true,
+            runValidators:true
+        })
+
+        if(!projectUpdated){
+                
+            return res.status(StatusCodes.NOT_FOUND).json({msg:`Project with id ${projectId} not found`})
+        }
+
+        return res.status(StatusCodes.OK).json({msg:`Project of id:${projectId} updated succesfully`, projectUpdated})
+
+    }
+
+    catch(err){
+
+        // console.log(err)
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({msg:'Something unexpected happened, try again!'})
+
+
+    }
 }
 
-const DeleteProject = (req,res)=>{
+const DeleteProject = async(req,res)=>{
 
-    res.send('hfksv')
+
+    try{
+
+
+        const {id:projectId} = req.params
+    
+        const deletedProject = await projectsModel.findOneAndDelete({_id:projectId})
+
+        if(!deletedProject){
+
+            return res.status(StatusCodes.NOT_FOUND).json({msg:`Project with the id of:${projectId} was not found`})
+        }
+
+        return res.status(StatusCodes.OK).json({msg:`Project of id:${projectId} was deleted successfully`})
+
+    }
+
+    catch(err){
+
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({msg:'Something unexpected happened, try again!'})
+
+    }
+
+
 }
 
 module.exports = {CreateProject, UpdateProject, DeleteProject}
