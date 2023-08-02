@@ -78,7 +78,7 @@ const Login = async(req, res)=>{
         
         const token = jwt.sign({clergyId:clergyEmail._id}, process.env.clergy_key, {expiresIn:'1d'})
 
-        return res.status(StatusCodes.OK).json({msg:`Login Successful`, clergyLogin, token})
+        return res.status(StatusCodes.OK).json({msg:`Login Successful`, clergyLogin, clergyToken:token})
 
 
 
@@ -94,5 +94,76 @@ const Login = async(req, res)=>{
     }
 }
 
+const UpdateProfile = async(req,res)=>{
 
-module.exports = {Register, Login}
+    try{
+
+        const {name,image,password} = req.body
+
+        if(password){
+
+            const salt = await bcrypt.genSalt(10)
+            const hashedPassword = await bcrypt.hash(password,salt)
+            req.body.password = hashedPassword
+        }
+
+        const {id:clergyId} = req.params
+
+        const updateClergy = await AuthModel.findOneAndUpdate({_id:clergyId}, req.body, {
+
+            new:true,
+            runValidators:true
+        })
+
+        if(!updateClergy){
+
+            return res.status(StatusCodes.NOT_FOUND).json({msg:`Staff with id:${updateClergy} has not been found`})
+        }
+
+        return res.status(StatusCodes.OK).json({msg:`Your Details have been updated succesfully`, updateClergy})
+
+
+    }
+
+    catch(err){
+
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({msg:'Something went wrong'})
+
+
+    }
+}
+
+
+const verifyToken = async(req, res, next)=>{
+
+    try{
+
+        if(req.headers.authorization){
+
+            const authHeader = req.headers.authorization
+            const token = authHeader.replace('Bearer ', '')
+            const decoded = jwt.verify(token, process.env.clergy_key)
+            req.token =decoded
+            // res.json({type:'success'})
+            next()
+        }
+
+        else{
+
+            res.status(StatusCodes.UNAUTHORIZED).json({msg:'Token is bad'})
+        }
+
+
+    }
+
+    catch(err){
+
+        // res.json({ type: 'error', message: 'Please authenticate', details: err })
+        return res.status(StatusCodes.UNAUTHORIZED).json({ msg: 'Invalid token' });
+
+
+    }
+}
+
+
+module.exports = {Register, Login, verifyToken,UpdateProfile}
