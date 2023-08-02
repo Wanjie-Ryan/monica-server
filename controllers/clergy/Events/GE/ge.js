@@ -1,4 +1,4 @@
-const Events = require('../../../../models/Events/events')
+const Events = require('../../../../models/clergy/Events/events')
 const {StatusCodes} = require('http-status-codes')
 
 

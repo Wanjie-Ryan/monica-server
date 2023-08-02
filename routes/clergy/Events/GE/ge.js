@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const {CreateEvents, GetAllEvents, GetSingleEvents, UpdateEvents, DeleteEvents} = require('../../../controllers/clergy/Events/GE/ge')
-const {verifyToken} = require('../../../controllers/clergy/Reg&Log/reg-log')
+const {CreateEvents, GetAllEvents, GetSingleEvents, UpdateEvents, DeleteEvents} = require('../../../../controllers/clergy/Events/GE/ge')
+const {verifyToken} = require('../../../../controllers/clergy/Reg&Log/reg-log')
 
 
 router.route('/createevent').post(CreateEvents)
