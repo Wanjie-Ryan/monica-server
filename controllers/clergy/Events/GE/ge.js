@@ -24,9 +24,26 @@ const CreateEvents = async(req,res)=>{
     }
 }
 
-const GetAllEvents = (req,res)=>{
+const GetAllEvents = async(req,res)=>{
 
-    res.send('hey')
+    try{
+
+        const AllEvents = await Events.find({})
+
+        if(!AllEvents){
+
+            return res.status(StatusCodes.NOT_FOUND).json({msg:'No Events were fetched'})
+        }
+
+        return res.status(StatusCodes.OK).json({msg:"The Events are the following:", AllEvents})
+
+    }
+
+    catch(err){
+
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR),json({msg:'There seems to be an error, please try again!'})
+
+    }
 }
 
 const GetSingleEvents = (req,res)=>{

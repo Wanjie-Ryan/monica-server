@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const eventSchema = new mongoose.Schema({
+const GeventSchema = new mongoose.Schema({
 
     title:{
 
@@ -16,7 +16,7 @@ const eventSchema = new mongoose.Schema({
     },
 
     ActualDate:{
-        
+
         //YYYY-MM-DD
         type:Date,
         required:[true, 'Provide the Actual Date for the Event']
@@ -42,4 +42,4 @@ const eventSchema = new mongoose.Schema({
 
 
 
-module.exports = mongoose.model('Events', eventSchema)
+module.exports = mongoose.model('GEvents', GeventSchema)
