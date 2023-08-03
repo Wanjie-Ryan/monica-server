@@ -1,9 +1,9 @@
 const express = require('express')
-const router = express.router()
+const router = express.Router()
+const {PostFeedback} = require('../../controllers/user/feedback')
 
 
-
-router.route('/feedback').post()
+router.route('/feedback').post(PostFeedback)
 
 
 
