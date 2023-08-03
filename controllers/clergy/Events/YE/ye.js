@@ -32,10 +32,10 @@ const GetAllEventsLadies = async(req,res)=>{
 
         if(!AllladiesEvents){
 
-            return res.status(StatusCodes.NOT_FOUND).json({msg:'No Teens Events were fetched'})
+            return res.status(StatusCodes.NOT_FOUND).json({msg:'No Youths Events were fetched'})
         }
 
-        return res.status(StatusCodes.OK).json({msg:"The Teens Events are the following:", AllladiesEvents})
+        return res.status(StatusCodes.OK).json({msg:"The Youths Events are the following:", AllladiesEvents})
 
     }
 
@@ -56,7 +56,7 @@ const GetSingleLadiesEvents = async(req,res)=>{
 
         if(!singleladiesEvent){
 
-            return res.status(StatusCodes.NOT_FOUND).json({msg:`Teens Event with the ID of:${eventId} has not been found`})
+            return res.status(StatusCodes.NOT_FOUND).json({msg:`Youths Event with the ID of:${eventId} has not been found`})
         }
 
         return res.status(StatusCodes.OK).json({msg:'The single Teens Event is:', singleladiesEvent})
