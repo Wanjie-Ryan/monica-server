@@ -59,7 +59,7 @@ const GetSingleLadiesEvents = async(req,res)=>{
             return res.status(StatusCodes.NOT_FOUND).json({msg:`Youths Event with the ID of:${eventId} has not been found`})
         }
 
-        return res.status(StatusCodes.OK).json({msg:'The single Teens Event is:', singleladiesEvent})
+        return res.status(StatusCodes.OK).json({msg:'The single Youths Event is:', singleladiesEvent})
 
 
     }
@@ -88,10 +88,10 @@ const UpdateLadiesEvents = async(req,res)=>{
 
         if(!updateladiesEvent){
 
-            return res.status(StatusCodes.NOT_FOUND).json({msg:`Teens Event with the ID of:${eventId} has not been found`})
+            return res.status(StatusCodes.NOT_FOUND).json({msg:`Youths Event with the ID of:${eventId} has not been found`})
         }
 
-        return res.status(StatusCodes.OK).json({msg:`The Teens Event with id of ${eventId} has been updated successfully:`, updateladiesEvent})
+        return res.status(StatusCodes.OK).json({msg:`The Youths Event with id of ${eventId} has been updated successfully:`, updateladiesEvent})
 
 
     }
@@ -114,10 +114,10 @@ const DeleteLadiesEvents = async(req,res)=>{
 
         if(!deleteladiesEvent){
 
-            return res.status(StatusCodes.NOT_FOUND).json({msg:`Teens Event with the ID of:${eventId} has not been found`})
+            return res.status(StatusCodes.NOT_FOUND).json({msg:`Youths Event with the ID of:${eventId} has not been found`})
         }
 
-        return res.status(StatusCodes.OK).json({msg:`Teens Event with the id of ${eventId} has been deleted successfully`})
+        return res.status(StatusCodes.OK).json({msg:`Youths Event with the id of ${eventId} has been deleted successfully`})
 
 
     }
@@ -151,10 +151,10 @@ const SearchLadiesEvents = async(req, res)=>{
 
         if(foundladiesEvents.length === 0){
 
-            return res.status(StatusCodes.NOT_FOUND).json({msg:'The specified Teens event was not found'})
+            return res.status(StatusCodes.NOT_FOUND).json({msg:'The specified Youths event was not found'})
         }
 
-        return res.status(StatusCodes.OK).json({msg:'Teens Event Found is:', foundladiesEvents})
+        return res.status(StatusCodes.OK).json({msg:'Youths Event Found is:', foundladiesEvents})
 
     }
 
