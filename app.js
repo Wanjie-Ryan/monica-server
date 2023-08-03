@@ -68,7 +68,7 @@ app.use('/api/clergy/youthevents',YERoute)
 
 // ROUTES FOR THE USER
 
-
+app.use('/api/user',FeedbackRoute)
 
 
 // ROUTES FOR THE ADMIN
