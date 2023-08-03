@@ -20,7 +20,7 @@ const CreateEvents = async(req,res)=>{
 
     catch(err){
 
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR),json({msg:'There seems to be an error, please try again!'})
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({msg:'There seems to be an error, please try again!'})
     }
 }
 
@@ -41,24 +41,94 @@ const GetAllEvents = async(req,res)=>{
 
     catch(err){
 
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR),json({msg:'There seems to be an error, please try again!'})
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({msg:'There seems to be an error, please try again!'})
 
     }
 }
 
-const GetSingleEvents = (req,res)=>{
+const GetSingleEvents = async(req,res)=>{
 
-    res.send('hey')
+    try{
+
+        const {id:eventId} = req.params
+
+        const singleEvent = await Events.findOne({_id:eventId})
+
+        if(!singleEvent){
+
+            return res.status(StatusCodes.NOT_FOUND).json({msg:`Event with the ID of:${eventId} has not been found`})
+        }
+
+        return res.status(StatusCodes.OK).json({msg:'The single Event is:', singleEvent})
+
+
+    }
+
+    catch(err){
+
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({msg:'There seems to be an error, please try again!'})
+
+
+    }
+
 }
 
-const UpdateEvents = (req,res)=>{
+const UpdateEvents = async(req,res)=>{
 
-    res.send('hey')
+    try{
+
+        const {title, image, description} = req.body
+        const {id:eventId} = req.params
+
+        const updateEvent = await Events.findOneAndUpdate({_id:eventId}, req.body, {
+
+            new:true,
+            runValidators:true
+        })
+
+        if(!updateEvent){
+
+            return res.status(StatusCodes.NOT_FOUND).json({msg:`Event with the ID of:${eventId} has not been found`})
+        }
+
+        return res.status(StatusCodes.OK).json({msg:`The Event with id of ${eventId} has been updated successfully:`, updateEvent})
+
+
+    }
+
+    catch(err){
+
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({msg:'There seems to be an error, please try again!'})
+
+
+    }
 }
 
-const DeleteEvents = (req,res)=>{
+const DeleteEvents = async(req,res)=>{
 
-    res.send('hey')
+    try{
+
+        const {id:eventId} = req.params
+
+        const deleteEvent = await Events.findOneAndDelete({_id:eventId})
+
+        if(!deleteEvent){
+
+            return res.status(StatusCodes.NOT_FOUND).json({msg:`Event with the ID of:${eventId} has not been found`})
+        }
+
+        return res.status(StatusCodes.OK).json({msg:`Event with the id of ${eventId} has been deleted successfully`})
+
+
+    }
+
+    catch(err){
+
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({msg:'There seems to be an error, please try again!'})
+
+
+    }
+    
 }
 
 module.exports = {CreateEvents, GetAllEvents, GetSingleEvents, UpdateEvents, DeleteEvents}
