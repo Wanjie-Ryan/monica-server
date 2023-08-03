@@ -131,4 +131,43 @@ const DeleteEvents = async(req,res)=>{
     
 }
 
-module.exports = {CreateEvents, GetAllEvents, GetSingleEvents, UpdateEvents, DeleteEvents}
+const SearchEvents = async(req, res)=>{
+
+    try{
+
+
+        const {searchTerm} = req.query
+
+        if(!searchTerm){
+
+            return res.status(StatusCodes.BAD_REQUEST).json({msg:'Please provide a search term'})
+        }
+
+        //using regular expression to perform a case-insensitive search
+
+        const regex = new RegExp(searchTerm, 'i')
+
+        const foundEvents =  await Events.find({title:regex})
+
+        if(foundEvents.length === 0){
+
+            return res.status(StatusCodes.NOT_FOUND).json({msg:'The specified event was not found'})
+        }
+
+        return res.status(StatusCodes.OK).json({msg:'Event Found is:', foundEvents})
+
+    }
+
+    catch(err){
+
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({msg:'There seems to be an error, please try again!'})
+
+
+    }
+
+
+
+
+}
+
+module.exports = {CreateEvents, GetAllEvents, GetSingleEvents, UpdateEvents, DeleteEvents,SearchEvents}
