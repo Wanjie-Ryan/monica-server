@@ -15,6 +15,8 @@ const connectionDB = require('./connection/connection.js')
 const AuthRoute = require('./routes/clergy/Reg&Log/reg-log')
 const ProjectsRoute = require('./routes/clergy/projects/projects')
 const GERoute = require('./routes/clergy/Events/GE/ge')
+const KERoute = require('./routes/clergy/Events/KE/ke')
+
 
 
 
@@ -48,7 +50,7 @@ app.use(cors())
 app.use('/api/clergy/auth', AuthRoute)
 app.use('/api/clergy/projects',ProjectsRoute)
 app.use('/api/clergy/events',GERoute)
-
+app.use('/api/clergy/kidsevents',KERoute)
 
 
 
