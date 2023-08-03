@@ -26,4 +26,31 @@ const PostFeedback = async(req,res)=>{
 }
 
 
-module.exports = {PostFeedback}
+const Allfeedbacks = async(req,res)=>{
+
+
+    try{
+
+        const getFeedbacks = await Feedback.find({})
+
+        if(!getFeedbacks){
+
+            return res.status(StatusCodes.NOT_FOUND).json({msg:'No user feedbacks were found'})
+        }
+
+        return res.status(StatusCodes.OK).json({msg:'Feedbacks were fetched successfully', getFeedbacks})
+
+    }
+
+    catch(err){
+
+        res.status(StatusCodes.INERNAL-SERVER_ERROR).json({msg:'There seems to be an error, try again'})
+
+
+    }
+
+
+}
+
+
+module.exports = {PostFeedback,Allfeedbacks}

@@ -1,10 +1,10 @@
 const express = require('express')
 const router = express.Router()
-const {PostFeedback} = require('../../controllers/user/feedback')
+const {PostFeedback,Allfeedbacks} = require('../../controllers/user/feedback')
 
 
 router.route('/feedback').post(PostFeedback)
-
+router.route('/allfeedbacks').get(Allfeedbacks)
 
 
 module.exports = router
