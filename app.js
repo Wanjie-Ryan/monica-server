@@ -17,6 +17,8 @@ const ProjectsRoute = require('./routes/clergy/projects/projects')
 const GERoute = require('./routes/clergy/Events/GE/ge')
 const KERoute = require('./routes/clergy/Events/KE/ke')
 const LERoute = require('./routes/clergy/Events/LE/le')
+const MERoute = require('./routes/clergy/Events/ME/me')
+
 
 
 
@@ -54,6 +56,8 @@ app.use('/api/clergy/projects',ProjectsRoute)
 app.use('/api/clergy/events',GERoute)
 app.use('/api/clergy/kidsevents',KERoute)
 app.use('/api/clergy/ladiesevents',LERoute)
+app.use('/api/clergy/menevents',MERoute)
+
 
 
 // ROUTES FOR THE USER
