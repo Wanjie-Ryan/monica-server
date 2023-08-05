@@ -7,7 +7,7 @@ const {Register, Login,  verifyToken, UpdateProfile} = require('../../../control
 
 router.route('/register').post(Register)
 router.route('/login').post(Login)
-router.route('/update/:id').patch(verifyToken,UpdateProfile)
+router.route('/update/:id').patch(UpdateProfile)
 router.route('/verify').get(verifyToken)
 
 
