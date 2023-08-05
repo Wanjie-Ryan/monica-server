@@ -149,7 +149,7 @@ const verifyToken = async(req, res, next)=>{
             const token = authHeader.replace('Bearer ', '')
             const decoded = jwt.verify(token, process.env.clergy_key)
             req.token =decoded
-            // res.json({type:'success'})
+            res.json({type:'success'})
             next()
         }
 
