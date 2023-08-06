@@ -23,6 +23,32 @@ const CreateProject = async (req, res) => {
   }
 };
 
+const GetAllProjects  = async(req,res)=>{
+
+  try{
+
+    const AllProjects = await projectsModel.find({})
+
+    if(AllProjects.length === 0){
+
+      return res.status('No projects have been found')
+    }
+
+    return res.status(StatusCodes.OK).json({msg:`The projects fetched are:`, AllProjects})
+
+
+  }
+
+  catch(err){
+
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ msg: "Something unexpected happened, try again!" });
+
+
+  }
+}
+
 const UpdateProject = async (req, res) => {
   try {
     const { title, image, description } = req.body;
@@ -82,4 +108,4 @@ const DeleteProject = async (req, res) => {
   }
 };
 
-module.exports = { CreateProject, UpdateProject, DeleteProject };
+module.exports = { CreateProject,GetAllProjects, UpdateProject, DeleteProject };
