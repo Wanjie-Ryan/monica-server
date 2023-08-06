@@ -5,7 +5,7 @@ const CreateProject = async (req, res) => {
   try {
     const { title, image, description } = req.body;
 
-    if (!title || !image || !description) {
+    if (!title || !image ) {
       return res
         .status(StatusCodes.BAD_REQUEST)
         .json({ msg: "Provide all the details" });
