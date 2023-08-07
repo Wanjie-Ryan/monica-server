@@ -5,7 +5,7 @@ const CreateProject = async (req, res) => {
   try {
     const { title, image, description } = req.body;
 
-    if (!title || !image ) {
+    if (!title || !image) {
       return res
         .status(StatusCodes.BAD_REQUEST)
         .json({ msg: "Provide all the details" });
@@ -23,31 +23,23 @@ const CreateProject = async (req, res) => {
   }
 };
 
-const GetAllProjects  = async(req,res)=>{
+const GetAllProjects = async (req, res) => {
+  try {
+    const AllProjects = await projectsModel.find({});
 
-  try{
-
-    const AllProjects = await projectsModel.find({})
-
-    if(AllProjects.length === 0){
-
-      return res.status('No projects have been found')
+    if (AllProjects.length === 0) {
+      return res.status("No projects have been found");
     }
 
-    return res.status(StatusCodes.OK).json({msg:`The projects fetched are:`, AllProjects})
-
-
-  }
-
-  catch(err){
-
+    return res
+      .status(StatusCodes.OK)
+      .json({ msg: `The projects fetched are:`, AllProjects });
+  } catch (err) {
     res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
       .json({ msg: "Something unexpected happened, try again!" });
-
-
   }
-}
+};
 
 const UpdateProject = async (req, res) => {
   try {
@@ -70,12 +62,10 @@ const UpdateProject = async (req, res) => {
         .json({ msg: `Project with id ${projectId} not found` });
     }
 
-    return res
-      .status(StatusCodes.OK)
-      .json({
-        msg: `Project of id:${projectId} updated succesfully`,
-        projectUpdated,
-      });
+    return res.status(StatusCodes.OK).json({
+      msg: `Project of id:${projectId} updated succesfully`,
+      projectUpdated,
+    });
   } catch (err) {
     // console.log(err)
     res
@@ -108,4 +98,42 @@ const DeleteProject = async (req, res) => {
   }
 };
 
-module.exports = { CreateProject,GetAllProjects, UpdateProject, DeleteProject };
+const SearchProjects = async (req, res) => {
+  try {
+    const { searchTerm } = req.query;
+
+    if (!searchTerm) {
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ msg: "Please provide a search term" });
+    }
+
+    //using regular expression to perform a case-insensitive search
+
+    const regex = new RegExp(searchTerm, "i");
+
+    const foundProjects = await projectsModel.find({ title: regex });
+
+    if (foundProjects.length === 0) {
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ msg: "The specified project was not found" });
+    }
+
+    return res
+      .status(StatusCodes.OK)
+      .json({ msg: "Project Found is:", foundProjects });
+  } catch (err) {
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ msg: "There seems to be an error, please try again!" });
+  }
+};
+
+module.exports = {
+  CreateProject,
+  GetAllProjects,
+  UpdateProject,
+  DeleteProject,
+  SearchProjects,
+};
