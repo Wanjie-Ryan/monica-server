@@ -1,10 +1,11 @@
 const express = require('express')
 const router = express.Router()
 const {CreateEvents, GetAllEvents, GetSingleEvents, UpdateEvents, DeleteEvents,SearchEvents} = require('../../../../controllers/clergy/Events/GE/ge')
-const {verifyToken} = require('../../../../controllers/clergy/Reg&Log/reg-log')
+const authMiddleware = require("../../../../middleware/auth");
 
 
-router.route('/createevent').post(CreateEvents)
+
+router.route('/createevent').post(authMiddleware,CreateEvents)
 router.route('/allevents').get(GetAllEvents)
 router.route('/singleevent/:id').get(GetSingleEvents)
 router.route('/updateevent/:id').patch(UpdateEvents)
