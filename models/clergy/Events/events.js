@@ -1,53 +1,37 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const GeventSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: [true, "Provide the name of the Event"],
+  },
 
-    title:{
+  image: {
+    type: String,
+    required: [true, "Provide the image of the Event"],
+  },
 
-        type:String,
-        required:[true, 'Provide the name of the Event']
-    },
+  ActualDate: {
+    //YYYY-MM-DD
+    type: Date,
+    required: [true, "Provide the Actual Date for the Event"],
+  },
 
-    image:{
+  DeadlineDate: {
+    type: Date,
+    required: [true, "Provide the Deadline Date for the Event"],
+  },
 
-        type:String,
-        required:[true, 'Provide the image of the Event']
+  category: {
+    type: String,
+    required: [true, "Provide the Category for the Event"],
+  },
 
-    },
+  description: {
+    type: String,
+    required: [true, "Provide a brief description of the Event"],
+    maxlength: 50,
+  },
+});
 
-    ActualDate:{
-
-        //YYYY-MM-DD
-        type:Date,
-        required:[true, 'Provide the Actual Date for the Event']
-    },
-
-    DeadlineDate:{
-
-        type:Date,
-        required:[true, 'Provide the Deadline Date for the Event']
-    },
-
-    category:{
-
-        type:String,
-        required:[true, 'Provide the Category for the Event']
-
-
-    },
-
-    description:{
-
-        type:String,
-        required:[true, 'Provide a brief description of the Event'],
-        maxlength:50
-
-    }
-
-
-
-})
-
-
-
-module.exports = mongoose.model('GEvents', GeventSchema)
+module.exports = mongoose.model("GEvents", GeventSchema);
