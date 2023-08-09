@@ -6,9 +6,9 @@ const CreateEvents = async(req,res)=>{
 
     try{
 
-        const {title, image, ActualDate, DeadlineDate, description} = req.body
+        const {title, image, ActualDate, DeadlineDate, category, description} = req.body
 
-        if(!title || !image || !ActualDate || !DeadlineDate || !description){
+        if(!title || !image || !ActualDate || !DeadlineDate || !category || !description){
 
             return res.status(StatusCodes.BAD_REQUEST).json({msg:'Fill all the fields'})
         }
@@ -77,7 +77,7 @@ const UpdateEvents = async(req,res)=>{
 
     try{
 
-        const {title, image, description} = req.body
+        const {title, image, category, description} = req.body
         const {id:eventId} = req.params
 
         const updateEvent = await Events.findOneAndUpdate({_id:eventId}, req.body, {

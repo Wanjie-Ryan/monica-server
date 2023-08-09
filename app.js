@@ -15,11 +15,6 @@ const connectionDB = require('./connection/connection.js')
 const AuthRoute = require('./routes/clergy/Reg&Log/reg-log')
 const ProjectsRoute = require('./routes/clergy/projects/projects')
 const GERoute = require('./routes/clergy/Events/GE/ge')
-const KERoute = require('./routes/clergy/Events/KE/ke')
-const LERoute = require('./routes/clergy/Events/LE/le')
-const MERoute = require('./routes/clergy/Events/ME/me')
-const TERoute = require('./routes/clergy/Events/TE/te')
-const YERoute = require('./routes/clergy/Events/YE/ye')
 
 
 
@@ -56,11 +51,7 @@ app.use(cors())
 app.use('/api/clergy/auth', AuthRoute)
 app.use('/api/clergy/projects',ProjectsRoute)
 app.use('/api/clergy/events',GERoute)
-app.use('/api/clergy/kidsevents',KERoute)
-app.use('/api/clergy/ladiesevents',LERoute)
-app.use('/api/clergy/menevents',MERoute)
-app.use('/api/clergy/teenevents',TERoute)
-app.use('/api/clergy/youthevents',YERoute)
+
 
 
 

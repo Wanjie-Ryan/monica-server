@@ -28,6 +28,14 @@ const GeventSchema = new mongoose.Schema({
         required:[true, 'Provide the Deadline Date for the Event']
     },
 
+    category:{
+
+        type:String,
+        required:[true, 'Provide the Category for the Event']
+
+
+    },
+
     description:{
 
         type:String,
