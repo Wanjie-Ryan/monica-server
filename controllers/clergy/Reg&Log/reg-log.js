@@ -99,14 +99,14 @@ const UpdateProfile = async(req,res)=>{
 
     try{
 
-        const {name,image,password} = req.body
+        const {name,image} = req.body
 
-        if(password){
+        // if(password){
 
-            const salt = await bcrypt.genSalt(10)
-            const hashedPassword = await bcrypt.hash(password,salt)
-            req.body.password = hashedPassword
-        }
+        //     const salt = await bcrypt.genSalt(10)
+        //     const hashedPassword = await bcrypt.hash(password,salt)
+        //     req.body.password = hashedPassword
+        // }
 
         const {id:clergyId} = req.params
         // const clergyId = req.params.id;
