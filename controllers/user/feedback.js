@@ -11,12 +11,10 @@ const PostFeedback = async (req, res) => {
         .json({ msg: "Fill in all the details" });
     }
 
-    return res
-      .status(StatusCodes.OK)
-      .json({
-        msg: "Your feedback has been saved successfully",
-        createfeedback,
-      });
+    return res.status(StatusCodes.OK).json({
+      msg: "Your feedback has been saved successfully",
+      createfeedback,
+    });
   } catch (err) {
     res
       .status(StatusCodes.INERNAL - SERVER_ERROR)
