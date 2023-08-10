@@ -45,6 +45,13 @@ app.use("/api/user", FeedbackRoute);
 
 // ROUTES FOR THE ADMIN
 
+app.get("/wake-up", (req, res) => {
+  res.json({
+    responseType: "success",
+    message: "Server is awake",
+  });
+});
+
 const DBConnection = async () => {
   try {
     await connectionDB(process.env.mongo_url);
