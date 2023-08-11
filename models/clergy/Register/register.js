@@ -11,6 +11,7 @@ const clergySchema = new mongoose.Schema(
 
     image: {
       type: String,
+      required:[true, 'Image must be provided']
     },
 
     email: {

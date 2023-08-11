@@ -7,7 +7,7 @@ const Register = async (req, res) => {
   try {
     const { name, image, email, tel, password } = req.body;
 
-    if (!name || !image || !email || !tel || !password) {
+    if (!name  || !image || !email || !tel || !password) {
       return res
         .status(StatusCodes.BAD_REQUEST)
         .json({ msg: "Please fill in all fields" });
